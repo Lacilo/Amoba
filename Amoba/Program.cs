@@ -15,7 +15,11 @@ namespace Amoba
     {
         static void Main(string[] args)
         {
+            Menu();
+        }
 
+        private static void Menu()
+        {
             int aktualisPont = 0;
             do
             {
@@ -50,8 +54,8 @@ namespace Amoba
                 switch (aktualisPont)
                 {
                     case 0: //Új játék
-                        
-                        break;          
+
+                        break;
                     case 1: //Kilépés
                         Console.Clear();
                         Console.SetCursorPosition(50, 0);
@@ -78,7 +82,7 @@ namespace Amoba
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Amőba 1.0 Menu");
             Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
-            
+
             if (cPoint == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -103,6 +107,45 @@ namespace Amoba
             {
                 Console.ForegroundColor = ConsoleColor.Green;
 
+            }
+
+
+            // KEZDETI (TESZT) MÁTRIXOT GENERÁLÓ FÜGGVÉNY
+            /// <summary>
+            /// Ez a függvény egy mátrixot generál
+            /// </summary>
+            /// <returns></returns>
+            static char[,] MatrixGenerate()
+            {
+                char[,] matrix = new char[10, 10];
+
+                for (int i = 0; i < 10; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        matrix[i, j] = char.Parse("x");
+                    }
+                }
+
+                return matrix;
+            }
+
+            // MÁTRIXOT MEGJELENÍTŐ ELJÁRÁS
+            /// <summary>
+            /// Ez a függvény megjeleníti a mátrixot
+            /// </summary>
+            /// <param name="matrix"></param>
+            static void DisplayMatrix(char[,] matrix)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        Console.Write(matrix[i, j] + " | ");
+                    }
+
+                    Console.WriteLine("\n");
+                }
             }
         }
     }
