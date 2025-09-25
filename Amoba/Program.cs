@@ -15,7 +15,11 @@ namespace Amoba
     {
         static void Main(string[] args)
         {
+            Menu();
+        }
 
+        private static void Menu()
+        {
             int aktualisPont = 0;
             do
             {
@@ -50,8 +54,8 @@ namespace Amoba
                 switch (aktualisPont)
                 {
                     case 0: //Új játék
-                        
-                        break;          
+
+                        break;
                     case 1: //Kilépés
                         Console.Clear();
                         Console.SetCursorPosition(50, 0);
@@ -78,7 +82,7 @@ namespace Amoba
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Amőba 1.0 Menu");
             Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
-            
+
             if (cPoint == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
