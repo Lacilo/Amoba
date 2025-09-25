@@ -1,5 +1,5 @@
 # Amoba
-## Vorsprung durch Technik
+## 
 TRELLO
 
 https://trello.com/invite/b/68d4fad8f4737116eb60d9e4/ATTI4e276f91e1ff256e1bdaa1b6806faa9d6CB48D84/amoba
