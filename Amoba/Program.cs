@@ -15,7 +15,9 @@ namespace Amoba
     {
         static void Main(string[] args)
         {
-            
+            object[,] matrix = MatrixGenerate(3);
+
+            DisplayMatrix(matrix);
         }
 
         private static void Menu()
@@ -116,15 +118,15 @@ namespace Amoba
         /// Ez a függvény egy mátrixot generál
         /// </summary>
         /// <returns></returns>
-        static char[,] MatrixGenerate()
+        static object[,] MatrixGenerate(int mSize = 10)
         {
-            char[,] matrix = new char[10, 10];
+            object[,] matrix = new object[mSize, mSize];
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < mSize; i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < mSize; j++)
                 {
-                    matrix[i, j] = char.Parse("x");
+                    matrix[i, j] = new object[] { i, j, " " };
                 }
             }
 
@@ -136,17 +138,53 @@ namespace Amoba
         /// Ez a függvény megjeleníti a mátrixot
         /// </summary>
         /// <param name="matrix"></param>
-        static void DisplayMatrix(char[,] matrix)
+        static void DisplayMatrix(object[,] matrix)
         {
-            for (int i = 0; i < 10; i++)
-            {
-                for (int j = 0; j < 10; j++)
-                {
-                    Console.Write(matrix[i, j] + " | ");
-                }
+            int mDSize = matrix.GetLength(0);
 
-                Console.WriteLine("\n");
+            // FELSŐ SÁV KIRAJZOLÁSA
+            Console.Write("┌-");
+
+            for (int i = 0; i < mDSize - 1; i++)
+            {
+                Console.Write("--┬-");
             }
+
+            Console.Write("--┐\n");
+
+
+            // MÁTRIX KIRAJZOLÁSA
+            for (int i = 0; i < mDSize; i++)
+            {
+                Console.Write("| ");
+                for (int j = 0; j < mDSize; j++)
+                {                    
+                    Console.Write((string)((object[])matrix[i, j])[2] + " | ");                                       
+                }                
+
+                // HA MÉG NEM AZ UTOLSÓ SORNÁL JÁR
+                if (i != mDSize - 1) {
+                    Console.Write("\n├-");
+
+                    for (int x = 0; x < mDSize - 1; x++)
+                    {
+                        Console.Write("--┼-");
+                    }
+
+                    Console.WriteLine("--┤");
+                }            
+            }
+                
+
+            // ALSÓ SÁV KIRAJZOLÁSA
+            Console.Write("\n└-");
+
+            for (int i = 0; i < mDSize - 1; i++)
+            {
+                Console.Write("--┴-");
+            }
+
+            Console.Write("--┘\n");
         }
         
     }
