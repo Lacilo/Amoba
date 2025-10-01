@@ -17,15 +17,15 @@ namespace Amoba
         {
             int mSize = 3;
 
-            int[] pos = { 0, 0 };
+            int[] pos = { 2, 0 };
 
             string[,] matrix = MatrixGenerate(mSize);
 
-            DisplayMatrix(matrix);
+            DisplayMatrix(matrix, pos);
 
             matrix = MatrixAppend(matrix, 0, 0, "x");
 
-            DisplayMatrix(matrix);
+            DisplayMatrix(matrix, pos);
         }
 
         private static void Menu()
@@ -205,7 +205,7 @@ namespace Amoba
         /// Ez a függvény megjeleníti a mátrixot
         /// </summary>
         /// <param name="matrix"></param>
-        static void DisplayMatrix(object[,] matrix)
+        static void DisplayMatrix(object[,] matrix, int[] pos)
         {
             int mDSize = matrix.GetLength(0);
 
@@ -226,7 +226,18 @@ namespace Amoba
                 Console.Write("| ");
                 for (int j = 0; j < mDSize; j++)
                 {
-                    Console.Write(matrix[i, j] + " | ");
+                    if (i == pos[1] && j == pos[0])
+                    {
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Black;
+                    }                  
+
+                   Console.Write(matrix[i, j]);
+
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                    Console.Write(" | ");
                 }
 
                 // HA MÉG NEM AZ UTOLSÓ SORNÁL JÁR
