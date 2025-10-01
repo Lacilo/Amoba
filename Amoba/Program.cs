@@ -15,11 +15,15 @@ namespace Amoba
     {
         static void Main(string[] args)
         {
-            string[,] matrix = MatrixGenerate(3);
+            int mSize = 3;
+
+            int[] pos = { 0, 0 };
+
+            string[,] matrix = MatrixGenerate(mSize);
 
             DisplayMatrix(matrix);
 
-            matrix = MatrixAppend(matrix, 1, 1, "x");
+            matrix = MatrixAppend(matrix, 0, 0, "x");
 
             DisplayMatrix(matrix);
         }
@@ -81,18 +85,54 @@ namespace Amoba
             while (aktualisPont != 1);
         }
 
-        static int[,] ChangePos(int[,] pos)
+        static int[] ChangePos(int[] pos, ConsoleKey pressedButton, int mSize)
         {
+            switch (pressedButton)
+            {
+                case ConsoleKey.UpArrow:
+                    if (mSize <= pos[0]++)
+                    {
+                        pos[0]++;
+                    }
+                    
+                    break;
 
+                case ConsoleKey.LeftArrow:
+                    if (mSize >= pos[1]--)
+                    {
+                        pos[1]--;
+                    }
+
+                    break;
+
+                case ConsoleKey.RightArrow:
+                    if (mSize >= pos[1]++)
+                    {
+                        pos[1]++;
+                    }
+                    break;
+
+                case ConsoleKey.DownArrow:
+                    if (mSize <= pos[0]--)
+                    {
+                        pos[0]--;
+                    }
+
+                    break;
+
+                default:
+                    break;
+            }
 
             return pos;
         }
 
-        static string[,] MatrixAppend(string[,] matrix, int pos_x, int pos_y, string character) {
+        static string[,] MatrixAppend(string[,] matrix, int pos_y, int pos_x, string character)
+        {
             // ITT HÍVNÁM MEG A FÜGGVÉNYT AMI ELLENŐRZI HOGY JÓ HELYRE TESZI-E ENNEK EGY BOOLEANT KELL VISSZAADNIA
             bool correctPlace = true; // FüggvényedNeve(pos_x, pos_y);
 
-            if (correctPlace) 
+            if (correctPlace)
             {
                 matrix[pos_x, pos_y] = character;
             }
@@ -101,7 +141,7 @@ namespace Amoba
 
             }
 
-                return matrix;
+            return matrix;
         }
 
         static void ShowMenu(int cPoint)
@@ -186,11 +226,12 @@ namespace Amoba
                 Console.Write("| ");
                 for (int j = 0; j < mDSize; j++)
                 {
-                    Console.Write(matrix[i, j] + " | ");                                       
-                }                
+                    Console.Write(matrix[i, j] + " | ");
+                }
 
                 // HA MÉG NEM AZ UTOLSÓ SORNÁL JÁR
-                if (i != mDSize - 1) {
+                if (i != mDSize - 1)
+                {
                     Console.Write("\n├-");
 
                     for (int x = 0; x < mDSize - 1; x++)
@@ -199,9 +240,9 @@ namespace Amoba
                     }
 
                     Console.WriteLine("--┤");
-                }            
+                }
             }
-                
+
 
             // ALSÓ SÁV KIRAJZOLÁSA
             Console.Write("\n└-");
@@ -213,7 +254,7 @@ namespace Amoba
 
             Console.Write("--┘\n");
         }
-        
+
     }
 }
 
