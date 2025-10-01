@@ -15,7 +15,11 @@ namespace Amoba
     {
         static void Main(string[] args)
         {
-            object[,] matrix = MatrixGenerate(3);
+            string[,] matrix = MatrixGenerate(3);
+
+            DisplayMatrix(matrix);
+
+            matrix = MatrixAppend(matrix, 1, 1, "x");
 
             DisplayMatrix(matrix);
         }
@@ -77,6 +81,29 @@ namespace Amoba
             while (aktualisPont != 1);
         }
 
+        static int[,] ChangePos(int[,] pos)
+        {
+
+
+            return pos;
+        }
+
+        static string[,] MatrixAppend(string[,] matrix, int pos_x, int pos_y, string character) {
+            // ITT HÍVNÁM MEG A FÜGGVÉNYT AMI ELLENŐRZI HOGY JÓ HELYRE TESZI-E ENNEK EGY BOOLEANT KELL VISSZAADNIA
+            bool correctPlace = true; // FüggvényedNeve(pos_x, pos_y);
+
+            if (correctPlace) 
+            {
+                matrix[pos_x, pos_y] = character;
+            }
+            else
+            {
+
+            }
+
+                return matrix;
+        }
+
         static void ShowMenu(int cPoint)
         {
             Console.Clear();
@@ -118,15 +145,15 @@ namespace Amoba
         /// Ez a függvény egy mátrixot generál
         /// </summary>
         /// <returns></returns>
-        static object[,] MatrixGenerate(int mSize = 10)
+        static string[,] MatrixGenerate(int mSize = 10)
         {
-            object[,] matrix = new object[mSize, mSize];
+            string[,] matrix = new string[mSize, mSize];
 
             for (int i = 0; i < mSize; i++)
             {
                 for (int j = 0; j < mSize; j++)
                 {
-                    matrix[i, j] = new object[] { i, j, " " };
+                    matrix[i, j] = " ";
                 }
             }
 
@@ -158,8 +185,8 @@ namespace Amoba
             {
                 Console.Write("| ");
                 for (int j = 0; j < mDSize; j++)
-                {                    
-                    Console.Write((string)((object[])matrix[i, j])[2] + " | ");                                       
+                {
+                    Console.Write(matrix[i, j] + " | ");                                       
                 }                
 
                 // HA MÉG NEM AZ UTOLSÓ SORNÁL JÁR
