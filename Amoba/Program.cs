@@ -15,9 +15,17 @@ namespace Amoba
     {
         static void Main(string[] args)
         {
-            object[,] matrix = MatrixGenerate(3);
+            int mSize = 3;
 
-            DisplayMatrix(matrix);
+            int[] pos = { 2, 0 };
+
+            string[,] matrix = MatrixGenerate(mSize);
+
+            DisplayMatrix(matrix, pos);
+
+            matrix = MatrixAppend(matrix, 0, 0, "x");
+
+            DisplayMatrix(matrix, pos);
         }
 
         private static void Menu()
@@ -77,6 +85,65 @@ namespace Amoba
             while (aktualisPont != 1);
         }
 
+        static int[] ChangePos(int[] pos, ConsoleKey pressedButton, int mSize)
+        {
+            switch (pressedButton)
+            {
+                case ConsoleKey.UpArrow:
+                    if (mSize <= pos[0]++)
+                    {
+                        pos[0]++;
+                    }
+                    
+                    break;
+
+                case ConsoleKey.LeftArrow:
+                    if (mSize >= pos[1]--)
+                    {
+                        pos[1]--;
+                    }
+
+                    break;
+
+                case ConsoleKey.RightArrow:
+                    if (mSize >= pos[1]++)
+                    {
+                        pos[1]++;
+                    }
+                    break;
+
+                case ConsoleKey.DownArrow:
+                    if (mSize <= pos[0]--)
+                    {
+                        pos[0]--;
+                    }
+
+                    break;
+
+                default:
+                    break;
+            }
+
+            return pos;
+        }
+
+        static string[,] MatrixAppend(string[,] matrix, int pos_y, int pos_x, string character)
+        {
+            // ITT HÍVNÁM MEG A FÜGGVÉNYT AMI ELLENŐRZI HOGY JÓ HELYRE TESZI-E ENNEK EGY BOOLEANT KELL VISSZAADNIA
+            bool correctPlace = true; // FüggvényedNeve(pos_x, pos_y);
+
+            if (correctPlace)
+            {
+                matrix[pos_x, pos_y] = character;
+            }
+            else
+            {
+
+            }
+
+            return matrix;
+        }
+
         static void ShowMenu(int cPoint)
         {
             Console.Clear();
@@ -118,15 +185,15 @@ namespace Amoba
         /// Ez a függvény egy mátrixot generál
         /// </summary>
         /// <returns></returns>
-        static object[,] MatrixGenerate(int mSize = 10)
+        static string[,] MatrixGenerate(int mSize = 10)
         {
-            object[,] matrix = new object[mSize, mSize];
+            string[,] matrix = new string[mSize, mSize];
 
             for (int i = 0; i < mSize; i++)
             {
                 for (int j = 0; j < mSize; j++)
                 {
-                    matrix[i, j] = new object[] { i, j, " " };
+                    matrix[i, j] = " ";
                 }
             }
 
@@ -138,7 +205,7 @@ namespace Amoba
         /// Ez a függvény megjeleníti a mátrixot
         /// </summary>
         /// <param name="matrix"></param>
-        static void DisplayMatrix(object[,] matrix)
+        static void DisplayMatrix(object[,] matrix, int[] pos)
         {
             int mDSize = matrix.GetLength(0);
 
@@ -158,12 +225,24 @@ namespace Amoba
             {
                 Console.Write("| ");
                 for (int j = 0; j < mDSize; j++)
-                {                    
-                    Console.Write((string)((object[])matrix[i, j])[2] + " | ");                                       
-                }                
+                {
+                    if (i == pos[1] && j == pos[0])
+                    {
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Black;
+                    }                  
+
+                   Console.Write(matrix[i, j]);
+
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                    Console.Write(" | ");
+                }
 
                 // HA MÉG NEM AZ UTOLSÓ SORNÁL JÁR
-                if (i != mDSize - 1) {
+                if (i != mDSize - 1)
+                {
                     Console.Write("\n├-");
 
                     for (int x = 0; x < mDSize - 1; x++)
@@ -172,9 +251,9 @@ namespace Amoba
                     }
 
                     Console.WriteLine("--┤");
-                }            
+                }
             }
-                
+
 
             // ALSÓ SÁV KIRAJZOLÁSA
             Console.Write("\n└-");
@@ -186,7 +265,7 @@ namespace Amoba
 
             Console.Write("--┘\n");
         }
-        
+
     }
 }
 
