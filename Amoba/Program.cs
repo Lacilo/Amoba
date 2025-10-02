@@ -15,23 +15,22 @@ namespace Amoba
     {
         static void Main(string[] args)
         {
-            int mSize = 3;
-
-            int[] pos = { 2, 0 };
-
+            int mSize = 10;
+            int[] pos = { 0, 0 };
             string[,] matrix = MatrixGenerate(mSize);
-
+            string uInput = "";
+            int[] uPos = new int[2];
+            Menu();
             DisplayMatrix(matrix, pos);
-                       
+
 
             do
             {
                 Console.Write("Adja meg a pozíciót --> ");
                 uInput = Console.ReadLine();
 
-                uKey = Console.ReadKey();
-
-                if (uInput != "") { 
+                if (uInput != "")
+                {
                     uPos[0] = int.Parse(uInput.Split(' ')[0]);
                     uPos[1] = int.Parse(uInput.Split(' ')[1]);
 
@@ -42,9 +41,9 @@ namespace Amoba
                     matrix = MatrixAppend(matrix, pos[0], pos[1], "x");
                 }
 
-            matrix = MatrixAppend(matrix, 0, 0, "x");
-
-            DisplayMatrix(matrix, pos);
+                DisplayMatrix(matrix, pos);
+            }
+            while (true);
         }
 
         private static void Menu()
@@ -96,6 +95,7 @@ namespace Amoba
                         {
                             aktualisPont = 0;
                         }
+                        Environment.Exit(0);
                         break;
 
 
@@ -113,7 +113,7 @@ namespace Amoba
                     {
                         pos[0]++;
                     }
-                    
+
                     break;
 
                 case ConsoleKey.LeftArrow:
@@ -229,62 +229,61 @@ namespace Amoba
             int mDSize = matrix.GetLength(0);
 
             // FELSŐ SÁV KIRAJZOLÁSA
-            Console.Write("┌-");
+            Console.Write("┌─");
 
             for (int i = 0; i < mDSize - 1; i++)
             {
-                Console.Write("--┬-");
+                Console.Write("──┬─");
             }
 
-            Console.Write("--┐\n");
+            Console.Write("──┐\n");
 
 
             // MÁTRIX KIRAJZOLÁSA
             for (int i = 0; i < mDSize; i++)
             {
-                Console.Write("| ");
+                Console.Write("│ ");
                 for (int j = 0; j < mDSize; j++)
                 {
                     if (i == pos[1] && j == pos[0])
                     {
                         Console.BackgroundColor = ConsoleColor.White;
                         Console.ForegroundColor = ConsoleColor.Black;
-                    }                  
+                    }
 
-                   Console.Write(matrix[i, j]);
+                    Console.Write(matrix[i, j]);
 
                     Console.BackgroundColor = ConsoleColor.Black;
                     Console.ForegroundColor = ConsoleColor.White;
 
-                    Console.Write(" | ");
+                    Console.Write(" │ ");
                 }
 
                 // HA MÉG NEM AZ UTOLSÓ SORNÁL JÁR
                 if (i != mDSize - 1)
                 {
-                    Console.Write("\n├-");
+                    Console.Write("\n├─");
 
                     for (int x = 0; x < mDSize - 1; x++)
                     {
-                        Console.Write("--┼-");
+                        Console.Write("──┼─");
                     }
 
-                    Console.WriteLine("--┤");
+                    Console.WriteLine("──┤");
                 }
             }
 
 
             // ALSÓ SÁV KIRAJZOLÁSA
-            Console.Write("\n└-");
+            Console.Write("\n└─");
 
             for (int i = 0; i < mDSize - 1; i++)
             {
-                Console.Write("--┴-");
+                Console.Write("──┴─");
             }
 
-            Console.Write("--┘\n");
+            Console.Write("──┘\n");
         }
 
     }
 }
-
