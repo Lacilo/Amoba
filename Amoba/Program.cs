@@ -20,35 +20,25 @@ namespace Amoba
             string[,] matrix = MatrixGenerate(mSize);
             string uInput = "";
             int[] uPos = new int[2];
-
             int[] vPos = new int[2];
-
 
             Menu();
             DisplayMatrix(matrix, pos);
-                       
 
             do
             {
                 Console.Write("Adja meg a pozíciót --> ");
                 uInput = Console.ReadLine();
 
-
                 if (uInput != "")
                 {
                     uPos[0] = int.Parse(uInput.Split(' ')[0]) - 1;
                     uPos[1] = int.Parse(uInput.Split(' ')[1]) - 1;
 
-                if (uInput != "") { 
-                    uPos[0] = int.Parse(uInput.Split(' ')[0]);
-                    uPos[1] = int.Parse(uInput.Split(' ')[1]);
-
-
-                    matrix = MatrixAppend(matrix, uPos[0], uPos[1], "x");
+                    matrix = MatrixAppend(matrix, uPos[1], uPos[0], "x");
                 }
                 else
                 {
-
                     do
                     {
                         pos = ChangePos(pos, mSize);
@@ -65,7 +55,7 @@ namespace Amoba
 
                     Console.WriteLine($"{vPos[0]} {vPos[1]}");
                     matrix = MatrixAppend(matrix, vPos[0], vPos[1], "x");
-                    
+
                 }
 
                 DisplayMatrix(matrix, vPos);
@@ -74,14 +64,6 @@ namespace Amoba
                 pos[1] = vPos[1];
             }
             while (true);
-
-                    matrix = MatrixAppend(matrix, pos[0], pos[1], "x");
-                }
-
-                DisplayMatrix(matrix, pos);
-            }
-            while (true);            
-
         }
 
         private static void Menu()
@@ -161,7 +143,7 @@ namespace Amoba
                     break;
 
                 case ConsoleKey.DownArrow:
-                    pos[1]++;                  
+                    pos[1]++;
                     break;
 
                 case ConsoleKey.Enter:
@@ -305,7 +287,7 @@ namespace Amoba
                 }
             }
 
-            //
+
             // ALSÓ SÁV KIRAJZOLÁSA
             Console.Write("\n└─");
 
