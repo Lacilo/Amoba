@@ -22,6 +22,25 @@ namespace Amoba
             string[,] matrix = MatrixGenerate(mSize);
 
             DisplayMatrix(matrix, pos);
+                       
+
+            do
+            {
+                Console.Write("Adja meg a pozíciót --> ");
+                uInput = Console.ReadLine();
+
+                uKey = Console.ReadKey();
+
+                if (uInput != "") { 
+                    uPos[0] = int.Parse(uInput.Split(' ')[0]);
+                    uPos[1] = int.Parse(uInput.Split(' ')[1]);
+
+                    matrix = MatrixAppend(matrix, uPos[0], uPos[1], "x");
+                }
+                else
+                {
+                    matrix = MatrixAppend(matrix, pos[0], pos[1], "x");
+                }
 
             matrix = MatrixAppend(matrix, 0, 0, "x");
 
