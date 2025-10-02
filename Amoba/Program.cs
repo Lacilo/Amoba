@@ -305,7 +305,7 @@ namespace Amoba
                 }
             }
 
-
+            //
             // ALSÓ SÁV KIRAJZOLÁSA
             Console.Write("\n└─");
 
