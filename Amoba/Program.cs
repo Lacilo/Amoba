@@ -20,25 +20,35 @@ namespace Amoba
             string[,] matrix = MatrixGenerate(mSize);
             string uInput = "";
             int[] uPos = new int[2];
+
             int[] vPos = new int[2];
+
 
             Menu();
             DisplayMatrix(matrix, pos);
+                       
 
             do
             {
                 Console.Write("Adja meg a pozíciót --> ");
                 uInput = Console.ReadLine();
 
+
                 if (uInput != "")
                 {
                     uPos[0] = int.Parse(uInput.Split(' ')[0]) - 1;
                     uPos[1] = int.Parse(uInput.Split(' ')[1]) - 1;
 
+                if (uInput != "") { 
+                    uPos[0] = int.Parse(uInput.Split(' ')[0]);
+                    uPos[1] = int.Parse(uInput.Split(' ')[1]);
+
+
                     matrix = MatrixAppend(matrix, uPos[0], uPos[1], "x");
                 }
                 else
                 {
+
                     do
                     {
                         pos = ChangePos(pos, mSize);
@@ -64,6 +74,14 @@ namespace Amoba
                 pos[1] = vPos[1];
             }
             while (true);
+
+                    matrix = MatrixAppend(matrix, pos[0], pos[1], "x");
+                }
+
+                DisplayMatrix(matrix, pos);
+            }
+            while (true);            
+
         }
 
         private static void Menu()
