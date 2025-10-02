@@ -20,6 +20,7 @@ namespace Amoba
             string[,] matrix = MatrixGenerate(mSize);
             string uInput = "";
             int[] uPos = new int[2];
+            var uKey;
             int[] vPos = new int[2];
 
             Menu();
@@ -30,6 +31,11 @@ namespace Amoba
                 Console.Write("Adja meg a pozíciót --> ");
                 uInput = Console.ReadLine();
 
+                uKey = Console.ReadKey();
+
+                if (uInput != "") { 
+                    uPos[0] = int.Parse(uInput.Split(' ')[0]);
+                    uPos[1] = int.Parse(uInput.Split(' ')[1]);
                 if (uInput != "")
                 {
                     uPos[0] = int.Parse(uInput.Split(' ')[0]) - 1;
