@@ -20,6 +20,10 @@ namespace Amoba
             string[,] matrix = MatrixGenerate(mSize);
             string uInput = "";
             int[] uPos = new int[2];
+
+            int[] vPos = new int[2];
+
+
             Menu();
             DisplayMatrix(matrix, pos);
                        
@@ -29,20 +33,55 @@ namespace Amoba
                 Console.Write("Adja meg a pozíciót --> ");
                 uInput = Console.ReadLine();
 
+
+                if (uInput != "")
+                {
+                    uPos[0] = int.Parse(uInput.Split(' ')[0]) - 1;
+                    uPos[1] = int.Parse(uInput.Split(' ')[1]) - 1;
+
                 if (uInput != "") { 
                     uPos[0] = int.Parse(uInput.Split(' ')[0]);
                     uPos[1] = int.Parse(uInput.Split(' ')[1]);
+
 
                     matrix = MatrixAppend(matrix, uPos[0], uPos[1], "x");
                 }
                 else
                 {
+
+                    do
+                    {
+                        pos = ChangePos(pos, mSize);
+
+                        if (pos[0] != -1)
+                        {
+                            vPos[0] = pos[0];
+                            vPos[1] = pos[1];
+                        }
+
+                        DisplayMatrix(matrix, vPos);
+                    }
+                    while (pos[0] != -1);
+
+                    Console.WriteLine($"{vPos[0]} {vPos[1]}");
+                    matrix = MatrixAppend(matrix, vPos[0], vPos[1], "x");
+                    
+                }
+
+                DisplayMatrix(matrix, vPos);
+
+                pos[0] = vPos[0];
+                pos[1] = vPos[1];
+            }
+            while (true);
+
                     matrix = MatrixAppend(matrix, pos[0], pos[1], "x");
                 }
 
                 DisplayMatrix(matrix, pos);
             }
             while (true);            
+
         }
 
         private static void Menu()
@@ -100,42 +139,34 @@ namespace Amoba
 
                 }
             }
-            while (aktualisPont != 1);
+            while (aktualisPont != 0);
         }
 
-        static int[] ChangePos(int[] pos, ConsoleKey pressedButton, int mSize)
+        static int[] ChangePos(int[] pos, int mSize)
         {
-            switch (pressedButton)
+            switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.UpArrow:
-                    if (mSize <= pos[0]++)
-                    {
-                        pos[0]++;
-                    }
-                    
-                    break;
-
-                case ConsoleKey.LeftArrow:
-                    if (mSize >= pos[1]--)
-                    {
-                        pos[1]--;
-                    }
+                    pos[1]--;
 
                     break;
 
                 case ConsoleKey.RightArrow:
-                    if (mSize >= pos[1]++)
-                    {
-                        pos[1]++;
-                    }
+                    pos[0]++;
+
+                    break;
+
+                case ConsoleKey.LeftArrow:
+                    pos[0]--;
                     break;
 
                 case ConsoleKey.DownArrow:
-                    if (mSize <= pos[0]--)
-                    {
-                        pos[0]--;
-                    }
+                    pos[1]++;                  
+                    break;
 
+                case ConsoleKey.Enter:
+                    pos[0] = -1;
+                    pos[1] = -1;
                     break;
 
                 default:
@@ -225,6 +256,8 @@ namespace Amoba
         /// <param name="matrix"></param>
         static void DisplayMatrix(object[,] matrix, int[] pos)
         {
+            Console.Clear();
+
             int mDSize = matrix.GetLength(0);
 
             // FELSŐ SÁV KIRAJZOLÁSA
@@ -248,9 +281,9 @@ namespace Amoba
                     {
                         Console.BackgroundColor = ConsoleColor.White;
                         Console.ForegroundColor = ConsoleColor.Black;
-                    }                  
+                    }
 
-                   Console.Write(matrix[i, j]);
+                    Console.Write(matrix[i, j]);
 
                     Console.BackgroundColor = ConsoleColor.Black;
                     Console.ForegroundColor = ConsoleColor.White;
@@ -286,4 +319,3 @@ namespace Amoba
 
     }
 }
-
