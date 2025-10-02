@@ -20,7 +20,7 @@ namespace Amoba
             string[,] matrix = MatrixGenerate(mSize);
             string uInput = "";
             int[] uPos = new int[2];
-
+            Menu();
             DisplayMatrix(matrix, pos);
                        
 
@@ -94,6 +94,7 @@ namespace Amoba
                         {
                             aktualisPont = 0;
                         }
+                        Environment.Exit(0);
                         break;
 
 
