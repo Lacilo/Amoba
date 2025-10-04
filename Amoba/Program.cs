@@ -151,6 +151,18 @@ namespace Amoba
             while (aktualisPont != 0);
         }
 
+        static bool PositionCheck(string[,] matrix, int x, int y)
+        {
+            if (matrix[x, y] == " ")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         static int[] ChangePos(int[] pos, int mSize)
         {
             switch (Console.ReadKey().Key)
