@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Text;
 using System.Globalization;
+using System.Threading.Tasks.Sources;
 
 namespace Amoba
 {
@@ -38,9 +39,12 @@ namespace Amoba
                     uPos[0] = int.Parse(uInput.Split(' ')[0]) - 1;
                     uPos[1] = int.Parse(uInput.Split(' ')[1]) - 1;
 
+                    validPos = PositionCheck(matrix, uPos[0], uPos[1]);
+
                     if (validPos)
                     {
                         matrix = MatrixAppend(matrix, uPos[1], uPos[0], symbol);
+                        symbol = ChangeSymbol(symbol, validPos);
                     }
                     else
                     {
@@ -63,11 +67,13 @@ namespace Amoba
                     }
                     while (pos[0] != -1);
 
-                    Console.WriteLine($"{vPos[0]} {vPos[1]}");
+                    validPos = PositionCheck(matrix, vPos[1], vPos[0]);
 
                     if (validPos)
                     {
                         matrix = MatrixAppend(matrix, vPos[0], vPos[1], symbol);
+
+                        symbol = ChangeSymbol(symbol, validPos);
                     }
                     else
                     {
@@ -78,8 +84,13 @@ namespace Amoba
                 DisplayMatrix(matrix, vPos);
 
                 pos[0] = vPos[0];
-                pos[1] = vPos[1];
+                pos[1] = vPos[1];            
 
+            }
+            while (true);
+
+            static string ChangeSymbol(string symbol, bool validPos)
+            {
                 if (symbol == "x" && validPos)
                 {
                     symbol = "o";
@@ -89,8 +100,8 @@ namespace Amoba
                     symbol = "x";
                 }
 
+                return symbol;
             }
-            while (true);
         }
 
         private static void Menu()
