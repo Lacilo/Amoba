@@ -31,6 +31,42 @@ namespace Amoba
             do
             {
                 Console.Write("Adja meg a pozíciót --> ");
+                uInput = Console.ReadLine();                
+
+                if (uInput != "")
+                {
+                    uPos[0] = int.Parse(uInput.Split(' ')[0]) - 1;
+                    uPos[1] = int.Parse(uInput.Split(' ')[1]) - 1;
+                    
+                    if (validPos)
+                    {
+                        matrix = MatrixAppend(matrix, uPos[1], uPos[0], symbol);
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+                    do
+                    {
+                        pos = ChangePos(pos, mSize);
+            int mSize = 10;
+            int[] pos = { 0, 0 };
+            string[,] matrix = MatrixGenerate(mSize);
+            string uInput = "";
+            int[] uPos = new int[2];
+            int[] vPos = new int[2];
+            string symbol = "x";
+            bool validPos = true;
+
+            Menu();
+            DisplayMatrix(matrix, pos);
+
+            do
+            {
+                Console.Write("Adja meg a pozíciót --> ");
                 uInput = Console.ReadLine();
 
                 if (uInput != "")
