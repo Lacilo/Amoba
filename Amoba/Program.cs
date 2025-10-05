@@ -28,7 +28,7 @@ namespace Amoba
 
             Menu();
             DisplayMatrix(matrix, pos);
-
+            //main loop
             do
             {
                 Console.Write("Adja meg a pozíciót --> ");
