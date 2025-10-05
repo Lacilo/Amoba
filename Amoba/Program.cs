@@ -87,7 +87,8 @@ namespace Amoba
                 pos[1] = vPos[1];            
 
             }
-            while (true);
+            while (!(HorizontalCheck(matrix, pos[0], pos[1]) || VerticalCheck(matrix, pos[0], pos[1])));
+            
 
             static string ChangeSymbol(string symbol, bool validPos)
             {
@@ -173,6 +174,74 @@ namespace Amoba
                 return false;
             }
         }
+
+        static bool HorizontalCheck(string[,] matrix, int x, int y)
+        {
+            string row = "";
+            for (int i = 0; i < matrix.GetLength(0) - 1; i++)
+            {
+
+                for (int j = 0; j < matrix.GetLength(1) - 1; j++)
+                {
+                    row += matrix[i, j];
+                }
+            }
+
+            return WinnerCheck(row);
+
+        }
+
+        private static bool WinnerCheck(string row)
+        {
+            if (row.Contains("xxxxx"))
+            {
+                Console.WriteLine("Az X nyert");
+                return true;
+            }
+            else if (row.Contains("ooooo"))
+            {
+                Console.WriteLine("Az O nyert");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        static bool VerticalCheck(string[,] matrix, int x, int y)
+        {
+            string column = "";
+            for (int i = 0; i < matrix.GetLength(1) - 1; i++)
+            {
+
+                for (int j = 0; j < matrix.GetLength(0) - 1; j++)
+                {
+                    column += matrix[j, i];
+                }
+            }
+
+            return WinnerCheck(column);
+
+            static bool WinnerCheck(string column)
+            {
+                if (column.Contains("xxxxx"))
+                {
+                    Console.WriteLine("Az X nyert");
+                    return true;
+                }
+                else if (column.Contains("ooooo"))
+                {
+                    Console.WriteLine("Az O nyert");
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
 
         static int[] ChangePos(int[] pos, int mSize)
         {
