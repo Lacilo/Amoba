@@ -24,10 +24,7 @@ namespace Amoba
             int[] vPos = new int[2];
             string symbol = "x";
             bool validPos = true;
-            string mInput = "";
-
-
-            string[,] matrix = MatrixGenerate(mSize);
+            string mInput = "";                                
 
             Menu();
             Console.Clear();
@@ -38,6 +35,8 @@ namespace Amoba
             {
                 mSize = int.Parse(mInput);
             }
+
+            string[,] matrix = MatrixGenerate(mSize);
 
             DisplayMatrix(matrix, pos, false);
 
@@ -355,18 +354,8 @@ namespace Amoba
         }
 
         static string[,] MatrixAppend(string[,] matrix, int pos_y, int pos_x, string character)
-        {
-            // ITT HÍVNÁM MEG A FÜGGVÉNYT AMI ELLENŐRZI HOGY JÓ HELYRE TESZI-E ENNEK EGY BOOLEANT KELL VISSZAADNIA
-            bool correctPlace = true; // FüggvényedNeve(pos_x, pos_y);
-
-            if (correctPlace)
-            {
-                matrix[pos_x, pos_y] = character;
-            }
-            else
-            {
-
-            }
+        {     
+            matrix[pos_x, pos_y] = character;           
 
             return matrix;
         }
@@ -407,7 +396,7 @@ namespace Amoba
         }
 
 
-        // KEZDETI (TESZT) MÁTRIXOT GENERÁLÓ FÜGGVÉNY
+        // KEZDETI (ÜRES) MÁTRIXOT GENERÁLÓ FÜGGVÉNY
         /// <summary>
         /// Ez a függvény egy mátrixot generál
         /// </summary>
