@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -18,73 +18,98 @@ namespace Amoba
         static void Main(string[] args)
         {
             int mSize = 10;
-            int[] pos = { 0, 0 };
-            string[,] matrix = MatrixGenerate(mSize);
+            int[] pos = { 0, 0 };            
             string uInput = "";
             int[] uPos = new int[2];
             int[] vPos = new int[2];
             string symbol = "x";
             bool validPos = true;
+            string mInput = "";
+
+
+            string[,] matrix = MatrixGenerate(mSize);
 
             Menu();
-            DisplayMatrix(matrix, pos);
+            Console.Clear();
+            Console.Write("Adja meg a játéktér méretét (min 5, pl.: \\-$ 12), az alapértelmezett 10x10-es mérethez hagyja üresen \\-$ ");
+            mInput = Console.ReadLine();
+
+            if (mInput != "" && int.Parse(mInput) > 5)
+            {
+                mSize = int.Parse(mInput);
+            }
+
+            DisplayMatrix(matrix, pos, false);
 
             do
             {
-                Console.Write("Adja meg a pozíciót --> ");
-                uInput = Console.ReadLine();
-
-                if (uInput != "")
+                try
                 {
-                    uPos[0] = int.Parse(uInput.Split(' ')[0]) - 1;
-                    uPos[1] = int.Parse(uInput.Split(' ')[1]) - 1;
+                    Console.Write("Adja meg a pozíciót --> ");
+                    uInput = Console.ReadLine();
 
-                    validPos = PositionCheck(matrix, uPos[0], uPos[1]);
-
-                    if (validPos)
+                    if (uInput != "")
                     {
-                        matrix = MatrixAppend(matrix, uPos[1], uPos[0], symbol);
-                        symbol = ChangeSymbol(symbol, validPos);
-                    }
-                    else
-                    {
+                        uPos[0] = int.Parse(uInput.Split(' ')[0]) - 1;
+                        uPos[1] = int.Parse(uInput.Split(' ')[1]) - 1;
 
-                    }
-                }
-                else
-                {
-                    do
-                    {
-                        pos = ChangePos(pos, mSize);
+                        validPos = PositionCheck(matrix, uPos[0], uPos[1]);
 
-                        if (pos[0] != -1)
+                        if (validPos)
                         {
-                            vPos[0] = pos[0];
-                            vPos[1] = pos[1];
+                            matrix = MatrixAppend(matrix, uPos[1], uPos[0], symbol);
+                            symbol = ChangeSymbol(symbol, validPos);
                         }
+                        else
+                        {
 
-                        DisplayMatrix(matrix, vPos);
-                    }
-                    while (pos[0] != -1);
-
-                    validPos = PositionCheck(matrix, vPos[1], vPos[0]);
-
-                    if (validPos)
-                    {
-                        matrix = MatrixAppend(matrix, vPos[0], vPos[1], symbol);
-
-                        symbol = ChangeSymbol(symbol, validPos);
+                        }
                     }
                     else
                     {
+                        DisplayMatrix(matrix, vPos, true);
 
+                        do
+                        {
+                            pos = ChangePos(pos, mSize);
+
+                            if (pos[0] != -1)
+                            {
+                                vPos[0] = pos[0];
+                                vPos[1] = pos[1];
+                            }
+
+                            DisplayMatrix(matrix, vPos, true);
+                        }
+                        while (pos[0] != -1);
+
+                        validPos = PositionCheck(matrix, vPos[1], vPos[0]);
+
+                        if (validPos)
+                        {
+                            matrix = MatrixAppend(matrix, vPos[0], vPos[1], symbol);
+
+                            symbol = ChangeSymbol(symbol, validPos);
+                        }
+                        else
+                        {
+
+                        }
                     }
+
+                    DisplayMatrix(matrix, vPos, false);
+
+                    pos[0] = vPos[0];
+                    pos[1] = vPos[1];
+
                 }
-
-                DisplayMatrix(matrix, vPos);
-
-                pos[0] = vPos[0];
-                pos[1] = vPos[1];            
+                catch (IndexOutOfRangeException)
+                {
+                    Console.WriteLine("Érvénytelen pozíció!");
+                }
+                catch (Exception) {
+                    Console.WriteLine("Helytelen input!");
+                }
 
             }
             while (!(HorizontalCheck(matrix, pos[0], pos[1]) || VerticalCheck(matrix, pos[0], pos[1]) ||DiagonalRightCheck(matrix, pos[0], pos[1]) ||DiagonalLeftCheck(matrix, pos[0], pos[1])));
@@ -200,7 +225,7 @@ namespace Amoba
             }
             else if (row.Contains("ooooo"))
             {
-                Console.WriteLine("Az O nyert");
+                Console.WriteLine("A O nyert");
                 return true;
             }
             else
@@ -221,25 +246,7 @@ namespace Amoba
                 }
             }
 
-            return WinnerCheck(column);
-
-            static bool WinnerCheck(string column)
-            {
-                if (column.Contains("xxxxx"))
-                {
-                    Console.WriteLine("Az X nyert");
-                    return true;
-                }
-                else if (column.Contains("ooooo"))
-                {
-                    Console.WriteLine("Az O nyert");
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            return WinnerCheck(column);            
         }
 
 
@@ -261,7 +268,7 @@ namespace Amoba
                         }
                         else
                         {
-                            Console.WriteLine("Az O nyert");
+                            Console.WriteLine("A O nyert");
                         }
                         return true;
                     }
@@ -289,7 +296,7 @@ namespace Amoba
                         }
                         else
                         {
-                            Console.WriteLine("Az O nyert");
+                            Console.WriteLine("A O nyert");
                         }
                         return true;
                     }
@@ -304,21 +311,35 @@ namespace Amoba
             switch (Console.ReadKey().Key)
             {
                 case ConsoleKey.UpArrow:
-                    pos[1]--;
+                    if (pos[1] - 1 >= 0)
+                    {
+                        pos[1]--;
+                    }                   
 
                     break;
 
                 case ConsoleKey.RightArrow:
-                    pos[0]++;
+                    if (pos[0] + 1 < mSize)
+                    {
+                        pos[0]++;
+                    }                    
 
                     break;
 
                 case ConsoleKey.LeftArrow:
-                    pos[0]--;
+                    if (pos[0] - 1 >= 0)
+                    {
+                        pos[0]--;
+                    }                    
+                    
                     break;
 
                 case ConsoleKey.DownArrow:
-                    pos[1]++;
+                    if (pos[1] + 1 < mSize)
+                    {
+                        pos[1]++;
+                    }                    
+
                     break;
 
                 case ConsoleKey.Enter:
@@ -411,7 +432,7 @@ namespace Amoba
         /// Ez a függvény megjeleníti a mátrixot
         /// </summary>
         /// <param name="matrix"></param>
-        static void DisplayMatrix(object[,] matrix, int[] pos)
+        static void DisplayMatrix(object[,] matrix, int[] pos, bool cursorDisplayed)
         {
             Console.Clear();
 
@@ -434,11 +455,20 @@ namespace Amoba
                 Console.Write("│ ");
                 for (int j = 0; j < mDSize; j++)
                 {
-                    if (i == pos[1] && j == pos[0])
+                    if (matrix[i, j] == "x")
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    }
+
+                    if (i == pos[1] && j == pos[0] && cursorDisplayed)
                     {
                         Console.BackgroundColor = ConsoleColor.White;
                         Console.ForegroundColor = ConsoleColor.Black;
-                    }
+                    }                    
 
                     Console.Write(matrix[i, j]);
 
