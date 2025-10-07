@@ -31,7 +31,7 @@ namespace Amoba
             Console.Write("Adja meg a játéktér méretét (min 5, pl.: \\-$ 12), az alapértelmezett 10x10-es mérethez hagyja üresen \\-$ ");
             mInput = Console.ReadLine();
 
-            if (mInput != "" && int.Parse(mInput) > 5)
+            if (mInput != "" && int.Parse(mInput) >= 5)
             {
                 mSize = int.Parse(mInput);
             }
@@ -111,7 +111,7 @@ namespace Amoba
                 }
 
             }
-            while (!(HorizontalCheck(matrix, pos[0], pos[1]) || VerticalCheck(matrix, pos[0], pos[1]) ||DiagonalRightCheck(matrix, pos[0], pos[1]) ||DiagonalLeftCheck(matrix, pos[0], pos[1])));
+            while (!(HorizontalCheck(matrix, pos[0], pos[1]) || VerticalCheck(matrix, pos[0], pos[1]) || DiagonalRightCheck(matrix, pos[0], pos[1]) || DiagonalLeftCheck(matrix, pos[0], pos[1])));
             
 
             static string ChangeSymbol(string symbol, bool validPos)
@@ -127,7 +127,7 @@ namespace Amoba
 
                 return symbol;
             }
-        }
+        }        
 
         private static void Menu()
         {
