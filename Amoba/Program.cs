@@ -111,7 +111,7 @@ namespace Amoba
                 }
 
             }
-            while (!(HorizontalCheck(matrix, pos[0], pos[1]) || VerticalCheck(matrix, pos[0], pos[1]) || DiagonalRightCheck(matrix, pos[0], pos[1]) || DiagonalLeftCheck(matrix, pos[0], pos[1])));
+            while (!(HorizontalCheck(matrix, pos[0], pos[1]) || VerticalCheck(matrix, pos[0], pos[1]) || DiagonalRightCheck(matrix, pos[0], pos[1]) || DiagonalLeftCheck(matrix, pos[0], pos[1]) || IsFull(matrix)));
             
 
             static string ChangeSymbol(string symbol, bool validPos)
@@ -197,6 +197,22 @@ namespace Amoba
             {
                 return false;
             }
+        }
+
+        static bool IsFull(string[,] matrix)
+        {
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    if (matrix[i, j] == " ")
+                    {
+                        return false;
+                    }
+                }
+            }
+            Console.WriteLine("Döntetlen!");
+            return true;
         }
 
         static bool HorizontalCheck(string[,] matrix, int x, int y)
